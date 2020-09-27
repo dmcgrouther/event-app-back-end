@@ -12,5 +12,7 @@ mongoose.connect('mongodb://localhost/event-app', { useNewUrlParser: true, useUn
 // const db = require(`./models`);
 
 
+const routes = require('./routes')
+
 // const server = app.listen(`Server connected at http://localhost:${PORT}`);
 app.listen(PORT, () => console.log(`Server connected at http://localhost:${PORT}`))
