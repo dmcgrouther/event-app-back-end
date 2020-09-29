@@ -10,7 +10,7 @@ const register = (req, res) => {
     db.User.findOne({ email: req.body.email, }, (err, foundUser) => {
         if (err) return res.status(500).json({ status: 500, message: 'Something has gone wrong please try again.' });
     
-        if(foundUser) return res.status(400).json({ status: 400, message: 'Email address has already been registered please try again'});
+        if(!foundUser) { 
 
         bcrypt.genSalt(10, (err, salt) => {
             if (err) return res.status(500).json({ status: 500, message: 'Something wernt wrong. Please try again'});
@@ -30,6 +30,7 @@ const register = (req, res) => {
                 })
             })
         })
+        } else return res.status(400).json({ status: 400, message: 'Email address has already been registered please try again'});
     })
 }
 
