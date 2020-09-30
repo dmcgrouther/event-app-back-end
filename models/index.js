@@ -1,10 +1,6 @@
-const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();
-const dbUrl = process.env.MONGODB_URI || 'mongodb://localhost:27017/event-app';
-// const dbUrl = process.env.MONGODB_URI || 'mongodb://localhost/:27017/event-app';
-
-
+const dbUrl = process.env.MONGODB_URI_HEROKU || process.env.MONGODB_URI_LOCAL;
 
 mongoose.connect(dbUrl, {
   useNewUrlParser: true,
@@ -12,9 +8,8 @@ mongoose.connect(dbUrl, {
   useCreateIndex: true,
   useUnifiedTopology: true,
 })
-.then(() => console.log('MongoDB connected..'))
-.catch((err) => console.log(`MongoDB connection error: ${err}`));
-
+  .then(() => console.log('MongoDB connected..'))
+  .catch((err) => console.log(`MongoDB connection error: ${err}`));
 
 module.exports = {
     Event: require('./Event'),
