@@ -2,11 +2,10 @@ const bcrypt = require('bcryptjs');
 const db = require('../models');
 
 const register = async (req, res) => {
-    console.log(req.body);
     try {
-        const getUser = await db.User.findOne({ email: req.body.email });
-        if (getUser) {
-            return res.status(400).json({ status: 400, error: 'Please use different email'})
+        const foundUser = await db.User.findOne({ email: req.body.email });
+        if (foundUser) {
+            return res.status(400).json({ status: 400, error: 'Something has gone wrong please try again.'})
         } else {
             const salt = await bcrypt.genSalt(10);
             const hash = await bcrypt.hash(req.body.password, salt);
