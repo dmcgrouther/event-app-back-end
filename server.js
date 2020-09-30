@@ -6,14 +6,6 @@ const PORT = process.env.PORT || 4000;
 const routes = require('./routes')
 
 
-// mongoose.connect('mongodb://localhost/event-app', { useNewUrlParser: true, useUnifiedTopology: true });
-
-// mongoose.connect('mongodb://localhost/event-app', {
-//     useNewUrlParser: true,
-//     useFindAndModify: false,
-//     useCreateIndex: true,
-//     useUnifiedTopology: true,
-// }).then(() => console.log('MongoDB connected..')).catch((err) => console.log(`MongoDB connection error: ${err}`));
 
 
 
