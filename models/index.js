@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-require('dotenv').config();
-const dbUrl = process.env.MONGODB_URI_HEROKU || process.env.MONGODB_URI_LOCAL;
+const dbUrl = process.env.MONGODB_URI;
 
 mongoose.connect(dbUrl, {
   useNewUrlParser: true,

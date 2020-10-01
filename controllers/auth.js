@@ -3,7 +3,7 @@ const db = require('../models');
 
 const register = async (req, res) => {
     try {
-        const foundUser = await db.User.findOne({ email: req.body.email });
+        const foundUser = await db.User.findOne({ email: req.body.email })
         if (foundUser) {
             return res.status(400).json({ status: 400, error: 'Something has gone wrong please try again.'})
         } else {
@@ -18,31 +18,32 @@ const register = async (req, res) => {
     }
 }
 
-const login = (req, res) => {
-    if(!req.body.email || !req.body.password) {
-        return res.status(400).json({status: 400, message: 'Please enter your email and password' });
-    }
-    db.User.findOne({email: req.body.email}, (err, foundUser) => {
-        if(err) return res.status(500).json({status: 500});
-
-        if (!foundUser) {
-            return res.status(400).json({status: 400, message: 'Email or password is incorrect'});
+const login = async (req, res) => {
+    try {
+        const foundUser = await db.User.findOne({ email: req.body.email })
+        const isMatch = await bcrypt.compare(req.body.password, foundUser.password)
+        if (isMatch) {
+            req.session.currentUser = foundUser.id
+            return res.status(200).json({ status: 200, message: 'Success', data: foundUser.id })
+        } else {
+            return res.status(400).json({ status: 400, message: 'Email or password is incorrect' })
         }
-        bcrypt.compare(req.body.password, foundUser.password, (err, isMatch) => {
-            if (err) return res.status(500).json({ status: 500, message: 'Something went wrong please try again'});
-        
-            if (isMatch) {
-                req.session.currentUser = { id: foundUser._id};
-                console.log(req.session)
-                return res.status(200).json({ status: 200, message: 'Success', data: foundUser._id });
-            } else {
-                return res.status(400).json({ status: 400, message: 'Email or password is incorrect' })
-            }
-        })
-    })
+    } catch {
+        return res.status(500).json({ status: 500, error: 'Something has gone wrong, Please try again' })
+    }
+}
+
+const logout = async (req, res) => {
+    try {
+        req.session.destroy()
+        return res.status(200).json({ status: 200, message: 'Success Logout' });
+    } catch {
+        return res.status(400).json({ status: 400, error: 'Something has gone wrong, Please try again' });
+    }
 }
 
 module.exports = {
     register,
     login,
+    logout,
 }
