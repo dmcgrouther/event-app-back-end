@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const dbUrl = 'mongodb://heroku_4vdrf3kr:53tmvnobn8r992jn40gd8k54mv@ds151450.mlab.com:51450/heroku_4vdrf3kr' || 'mongodb://localhost:27017/event-app';
+const dbUrl = process.env.MONGODB_URI_HEROKU || process.env.MONGODB_URI_LOCAL;
 
 mongoose.connect(dbUrl, {
   useNewUrlParser: true,
