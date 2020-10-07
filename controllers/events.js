@@ -69,10 +69,27 @@ const editOneEvent = (req, res) => {
         });
 }
 
+const deleteOneEvent = (req, res) => {
+    db.Event.findByIdAndDelete(
+        req.params.eventId, (err, deleteEvent) => {
+            if(err) return res.status(500).json({
+                status: 500,
+                error: [{message: 'Could not delete event!'}],
+            });
+            res.json({
+                status: 200,
+                count: 1,
+                data: deleteEvent,
+                requestedAt: new Date().toLocaleString(),
+            });
+        });
+}
+
 
 module.exports = {
     createEvent,
     showAllEvents,
     showOneEvent,
     editOneEvent,
+    deleteOneEvent,
 }
