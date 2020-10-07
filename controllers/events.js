@@ -31,7 +31,28 @@ const showAllEvents = (req, res) => {
     });
 };
 
+const showOneEvent = (req, res) => {
+    db.Event.findById(req.params.eventId, (error, foundEvent) => {
+        if(error) return console.log(error);
+        if(foundEvent) {
+            res.json({
+                status: 200,
+                count: 1,
+                data: foundEvent,
+                requestedAt: new Date().toLocaleString(),
+            });
+        } else {
+            res.json({
+                status: 404,
+                count: 0,
+                data: `Event with ID ${req.params.eventId} was not found.`
+            })
+        }
+    })
+}
+
 module.exports = {
     createEvent,
     showAllEvents,
+    showOneEvent,
 }

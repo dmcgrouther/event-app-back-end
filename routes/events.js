@@ -4,5 +4,6 @@ const ctrl = require('../controllers');
 
 router.post('/', ctrl.events.createEvent);
 router.get('/', ctrl.events.showAllEvents);
+router.get('/:eventId', ctrl.events.showOneEvent);
 
 module.exports = router;
