@@ -1,7 +1,7 @@
 const db = require('../models');
 
 const createEvent = (req, res) => {
-    db.Post.create(req.body, (err, createdEvent) => {
+    db.Event.create(req.body, (err, createdEvent) => {
         if (err) return res.status(500).json({
             status: 500,
             error: [{message: 'Something went wrong. Please try again.'}]
