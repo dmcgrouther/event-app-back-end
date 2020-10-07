@@ -1,4 +1,5 @@
 const db = require('../models');
+const { all } = require('../routes/auth');
 
 const createEvent = (req, res) => {
     db.Event.create(req.body, (err, createdEvent) => {
@@ -15,6 +16,22 @@ const createEvent = (req, res) => {
     });
 };
 
+const showAllEvents = (req, res) => {
+    db.Event.find({}, (err, allEvents) => {
+        if (err) return res.status(500),json({
+            status: 500,
+            error: [{message: 'Could not display all events! Please try again'}],
+        });
+        res.json({
+            status: 200,
+            count: allEvents.length,
+            data: allEvents,
+            requestedAt: new Date().toLocaleString(),
+        });
+    });
+};
+
 module.exports = {
     createEvent,
+    showAllEvents,
 }
