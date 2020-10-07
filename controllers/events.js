@@ -1,5 +1,4 @@
 const db = require('../models');
-const { all } = require('../routes/auth');
 
 const createEvent = (req, res) => {
     db.Event.create(req.body, (err, createdEvent) => {
@@ -49,10 +48,31 @@ const showOneEvent = (req, res) => {
             })
         }
     })
+};
+
+const editOneEvent = (req, res) => {
+    db.Event.findByIdAndUpdate(
+        req.params.eventId,
+        req.body,
+        {new: true}, (err, updatedEvent) => {
+            if(err) return res.status(500).json({
+                status: 500,
+                error: [{message: 'Something went wrong with editing!'}],
+            });
+
+            res.json({
+                status: 200,
+                count: 1,
+                data: updatedEvent,
+                requestedAt: new Date().toLocaleString()
+            });
+        });
 }
+
 
 module.exports = {
     createEvent,
     showAllEvents,
     showOneEvent,
+    editOneEvent,
 }
