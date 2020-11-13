@@ -5,7 +5,7 @@ const register = async (req, res) => {
     try {
         const foundUser = await db.User.findOne({ email: req.body.email })
         if (foundUser) {
-            return res.status(400).json({ status: 400, error: 'Something has gone wrong please try again.'})
+            return res.status(400).json({ status: 400, error: 'This email already exists.'})
         } else {
             const salt = await bcrypt.genSalt(10);
             const hash = await bcrypt.hash(req.body.password, salt);
