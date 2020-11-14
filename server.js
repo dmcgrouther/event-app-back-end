@@ -32,7 +32,10 @@ app.use(session({
     },
 }));
 
-app.get('/', (req, res) => res.send('Hello David!'))
-app.use('/api/v1', routes);
+// app.get('/', (req, res) => res.send('Hello David!'))
+// app.use('/api/v1', routes);
+app.use('/api/v1/auth', routes.auth);
+app.use('/api/v1/events', routes.events);
+// app.use('/api/v1/events', routes.events);
 
 app.listen(PORT, () => console.log(`Server connected at http://localhost:${PORT}`))

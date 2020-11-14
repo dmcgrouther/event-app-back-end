@@ -58,6 +58,9 @@ const EventSchema = new Schema({
     dateCreated: {
         type: Date,
         default: Date.now,
+    },
+    experienceLevel: {
+        type: String
     }
 });
 
