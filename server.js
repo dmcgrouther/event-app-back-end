@@ -7,7 +7,7 @@ const cors = require('cors');
 const PORT = process.env.PORT || 4000;
 require('dotenv').config();
 
-const routes = require('./routes/auth')
+const routes = require('./routes')
 
 const corsOptions = {
     "Access-Control-Allow-Origin": 'http://localhost:3000',
@@ -16,14 +16,6 @@ const corsOptions = {
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH, DELETE",
     optionsSuccessStatus: 200
 }
-
-app.use(cors(corsOptions));
-
-const corsOptions = {
-    origin: [`http://localhost:3000`],
-    credentials: true,
-    optionsSuccessStatus: 200
-};
 
 app.use(cors(corsOptions))
 
