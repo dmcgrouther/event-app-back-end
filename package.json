@@ -12,9 +12,14 @@
   "dependencies": {
     "bcrypt": "^5.0.0",
     "bcryptjs": "^2.4.3",
+<<<<<<< HEAD
+=======
+    "connect-mongo": "^3.2.0",
+>>>>>>> e3ad5bf3b2af9628f15b183bc57c8f7cce71ff4f
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "mongodb": "^3.6.2",
     "mongoose": "^5.10.7",
     "nodemon": "^2.0.4"
