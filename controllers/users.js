@@ -1,0 +1,18 @@
+const db = require('../models');
+
+const showAUser = (req, res) => {
+    db.User.findById(req.params.userId, (err, foundUser) => {
+        if (err) return res.status(500).json({
+            status: 500,
+            message: err
+        });
+        res.status(200).json({
+            status: 200,
+            data: foundUser,
+        });
+    });
+};
+
+module.exports = {
+    showAUser
+}
