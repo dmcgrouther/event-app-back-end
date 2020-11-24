@@ -32,7 +32,24 @@ const editCurrentUser = (req, res) => {
         })
 }
 
+const deleteCurrentUser = (req, res) => {
+    db.User.findByIdAndDelete(
+      req.params.userId, (err, deleteUser) =>{
+        if (err)  return res.status(500).json({
+          status: 500,
+          error: [{message: 'Something went wrong! Please try again'}],
+        });
+        res.json({
+          status:200,
+          count: 1,
+          data: deleteUser,
+          requestedAt: new Date().toLocaleString(),
+        })
+      })
+  }
+
 module.exports = {
     showAUser,
-    editCurrentUser
+    editCurrentUser,
+    deleteCurrentUser
 }
