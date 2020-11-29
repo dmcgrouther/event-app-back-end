@@ -24,11 +24,14 @@ const UserSchema = new Schema({
     contactInfo: {
         type: String
     },
-    usersEvents: [{
+    usersEventsAsAttendee: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Event'
+    }],
+    eventsUserIsHosting: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Event' 
     }]
-    
 })
 
 const User = mongoose.model('User', UserSchema);
