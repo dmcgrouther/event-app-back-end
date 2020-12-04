@@ -61,6 +61,10 @@ const EventSchema = new Schema({
     },
     experienceLevel: {
         type: String
+    },
+    eventLengthInHours: {
+        type: Number,
+        required: true
     }
 });
 
