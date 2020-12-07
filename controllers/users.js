@@ -48,6 +48,34 @@ const deleteCurrentUser = (req, res) => {
       })
   }
 
+// const deleteCurrentUser = (req, res) => {
+//     db.User.findById(req.params.userId, (err, foundUser) => {
+//         if (err) return res.status(500).json({
+//             status: 500,
+//             message: err
+//         });
+//         return ( res.status(200).json({
+//             status: 200,
+//             data: foundUser,
+//         }), 
+//         foundUser.eventsUserIsHosting.forEach(eventUserIsHosting => {
+//             console.log(eventUserIsHosting)
+//             db.Event.findById(eventUserIsHosting, (err, foundEvent) => {
+//                 if (err) return res.status(500).json({
+//                     status: 500,
+//                     message: err
+//                 });
+//                 return res.status(201).json({
+//                     status: 201,
+//                     count: 1,
+//                     data: foundEvent,
+//                     requestedAt: new Date().toLocaleString(),
+//                 }) 
+//             })
+//         }))
+//     })
+// }
+
 module.exports = {
     showAUser,
     editCurrentUser,
