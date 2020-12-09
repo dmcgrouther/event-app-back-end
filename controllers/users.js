@@ -52,25 +52,13 @@ const deleteCurrentUser = async (req, res) => {
     let userId = req.params.userId
     let eventsAttending = []
     try {
-        // const deleteUser = await db.User.findByIdAndDelete(userId)
-        const deleteUser = await db.User.findById(userId)
+        const deleteUser = await db.User.findByIdAndDelete(userId)
         const eventsFound = await db.Event.find()
-        console.log(eventsFound)
-        console.log(userId)
     
         eventsFound.forEach(eventFound => {
-
-            const foundEvent = eventFound.nonHostUsers.findById(userId)
-            console.log(foundEvent)
-            // eventFound.nonHostUsers.findById(userId, (error, eventAsAttendee) => {
-            //     if (error) {
-            //         return res.status(500).json({ error: "Cloud not find this user"})
-            //     } else {
-
-            //         console.log(eventAsAttendee)
-            //         eventsAttending.push(eventAsAttendee)
-            //     }
-            // })
+            let editAttendees = eventFound.nonHostUsers.filter( attendeeId => attendeeId != userId )
+            eventFound.nonHostUsers = editAttendees
+            eventFound.save()
         })
         
         return res.status(200).json({ status: 200, data: deleteUser, delete: eventsAttending })
