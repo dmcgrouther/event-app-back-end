@@ -50,7 +50,7 @@ const editCurrentUser = (req, res) => {
 
 const deleteCurrentUser = async (req, res) => {
     let userId = req.params.userId
-    let eventsAttending = []
+    // let eventsAttending = []
     try {
         const deleteUser = await db.User.findByIdAndDelete(userId)
         const eventsFound = await db.Event.find()
@@ -58,6 +58,7 @@ const deleteCurrentUser = async (req, res) => {
         eventsFound.forEach(eventFound => {
             let editAttendees = eventFound.nonHostUsers.filter( attendeeId => attendeeId != userId )
             eventFound.nonHostUsers = editAttendees
+            eventFound.currentNonHostPlayerCount = eventFound.currentNonHostPlayerCount-1
             eventFound.save()
         })
         
