@@ -63,11 +63,11 @@ const deleteCurrentUser = async (req, res) => {
             } 
             eventFound.save()
 
-            // //check if userId is host for event (eventFound.hostUser)
-            // if(eventFound.hostUser[0] == userId){
-            //     console.log(eventFound._id)
-            //     // let deleteEvent = await db.Event.findByIdAndDelete(eventFound._id)                
-            // }
+            //check if userId is host for event (eventFound.hostUser)
+            if(eventFound.hostUser[0] == userId){
+                console.log(eventFound._id)
+                // let deleteEvent = await db.Event.findByIdAndDelete(eventFound._id)                
+            }
 
         })
         
