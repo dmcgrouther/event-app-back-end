@@ -6,11 +6,11 @@ const EventSchema = new Schema({
         type: String,
         required: true
     },
-    gameSystem: {
+    additionalInfo1: {
         type: String,
         required: true
     },
-    gameEdition: {
+    additionalInfo2: {
         type: String,
         required: true
     },
@@ -33,8 +33,13 @@ const EventSchema = new Schema({
     currentNonHostPlayerCount: {
         type: Number
     },
-    howTheEventHappens: {
+    eventMeetupType: {
         //is this a virtual event? in person meetup? convention?
+        type: String,
+        required: true
+    },
+    eventFamilyArchetype: {
+        //zoom, discord, in person. links and address would go here
         type: String,
         required: true
     },
