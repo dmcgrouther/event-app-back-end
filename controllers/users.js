@@ -1,16 +1,24 @@
 const db = require('../models');
 
-const showAUser = (req, res) => {
-    db.User.findById(req.params.userId, (err, foundUser) => {
-        if (err) return res.status(500).json({
-            status: 500,
-            message: err
-        });
-        res.status(200).json({
-            status: 200,
-            data: foundUser,
-        });
-    });
+const showAUser = async (req, res) => {
+    let userId = req.params.userId
+    let events = []
+    let hosts = []
+
+    try {
+        const foundUser = await db.User.findById(userId)
+        const eventAttended = await db.Event.find({ nonHostUsers: [userId]}).populate("user")
+        const eventHosted = await db.Event.find({ hostUser: [userId]}).populate("user")
+        eventAttended.forEach(event => events.push(event._id))
+        eventHosted.forEach(event => hosts.push(event._id))
+
+        foundUser.usersEventsAsAttendee = events
+        foundUser.eventsUserIsHosting = hosts
+
+        return res.status(200).json({ status: 200, data: foundUser })
+    } catch {
+        return res.status(500).json({ error: "Cloud not find this user"})
+    }
 };
 
 const editCurrentUser = (req, res) => {
@@ -50,13 +58,13 @@ const editCurrentUser = (req, res) => {
 
 const deleteCurrentUser = async (req, res) => {
     let userId = req.params.userId
-    let eventsUserIsAttending = []
-    let eventsUserIsHostingToDelete = [];
+    // let eventsUserIsAttending = []
+    // let eventsUserIsHostingToDelete = [];
 
     try {
         const deleteUser = await db.User.findByIdAndDelete(userId)
-        const eventsFound = await db.Event.find()
         const hostsFound = await db.Event.deleteMany({ hostUser: [userId]}).populate('user')
+        const eventsFound = await db.Event.find()
     
         eventsFound.forEach(eventFound => {
             let editAttendees = eventFound.nonHostUsers.filter( attendeeId => attendeeId != userId )
