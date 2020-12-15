@@ -23,8 +23,8 @@ app.use(cors(corsOptions))
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(session({
-    store: new MongoStore({ url: "mongodb://localhost:27017/event-app" }),
-    secret: "event-app",
+    store: new MongoStore({ url: process.env.MONGODB_ATLAS_URI }),
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
