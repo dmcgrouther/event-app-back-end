@@ -7,7 +7,7 @@ const showAUser = async (req, res) => {
 
     try {
         const foundUser = await db.User.findById(userId)
-        const eventAttended = await db.Event.find({ nonHostUsers: [userId]}).populate("user")
+        const eventAttended = await db.Event.find({ nonHostUsers: { $all: [userId] } }).populate("user")
         const eventHosted = await db.Event.find({ hostUser: [userId]}).populate("user")
         eventAttended.forEach(event => events.push(event._id))
         eventHosted.forEach(event => hosts.push(event._id))
@@ -58,8 +58,6 @@ const editCurrentUser = (req, res) => {
 
 const deleteCurrentUser = async (req, res) => {
     let userId = req.params.userId
-    // let eventsUserIsAttending = []
-    // let eventsUserIsHostingToDelete = [];
 
     try {
         const deleteUser = await db.User.findByIdAndDelete(userId)
