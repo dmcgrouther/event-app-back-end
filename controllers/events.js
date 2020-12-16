@@ -17,7 +17,7 @@ const createEvent = (req, res) => {
 
 const showAllEvents = (req, res) => {
     db.Event.find({}, (err, allEvents) => {
-        if (err) return res.status(500),json({
+        if (err) return res.status(500).json({
             status: 500,
             error: [{message: 'Could not display all events! Please try again'}],
         });
